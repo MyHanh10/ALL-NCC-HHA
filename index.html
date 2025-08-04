@@ -3,169 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALL FBTL</title>
+    <title>Cổng thông tin Batuli</title>
     
-    <!-- Tích hợp Tailwind CSS để tạo giao diện -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Tích hợp Font từ Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Sử dụng font Be Vietnam Pro cho toàn bộ trang */
         body {
             font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .dark body {
+            background-color: #111827;
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+<body class="text-gray-900 dark:text-gray-100 pb-24">
 
-    <!-- Header mới với Logo và Tiêu đề -->
-    <header class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-10">
-        <div class="container mx-auto max-w-6xl p-4 flex justify-between items-center">
-            <!-- Logo và Tiêu đề trang -->
+    <header class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-20">
+        <div class="container mx-auto max-w-7xl p-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <!-- Bạn có thể thay thế SVG này bằng thẻ <img src="link_logo.png"> -->
-                <svg class="h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <svg class="h-8 w-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
                 </svg>
-                <span class="text-xl font-bold text-gray-900 dark:text-white">ALL FBTL</span>
+                <span class="text-xl font-bold text-gray-800 dark:text-white">Cổng thông tin Batuli</span>
             </div>
-            <!-- Thông tin người dùng và nút Dark Mode -->
             <div class="flex items-center space-x-4">
-                <span class="text-gray-600 dark:text-gray-400 hidden sm:inline">Xin chào</span>
-                <button id="darkModeToggler" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                <span class="text-gray-600 dark:text-gray-300 hidden sm:inline">Xin chào, Hanhltm10</span>
+                <button id="darkModeToggler" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Thay đổi pb-24 thành pb-40 để tăng khoảng trống -->
-    <div class="container mx-auto max-w-6xl p-4 sm:p-6 md:p-8 pb-40">
-        <!-- Danh sách các liên kết theo từng cấp - Bố cục lưới 2 cột -->
-        <main class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+    <div class="container mx-auto max-w-7xl p-4 sm:p-6 md:p-8">
+        <main class="grid grid-cols-1 gap-y-12">
 
-            <!-- Cấp: Hệ thống Chuyên môn -->
             <div>
-                <h2 class="text-2xl font-bold mb-6 border-l-4 border-blue-500 pl-4 text-gray-900 dark:text-white">Hệ thống Chuyên môn</h2>
-                <div class="grid grid-cols-2 gap-6">
-                    <!-- Thẻ CSDL -->
-                    <a href="https://truong.hanoi.edu.vn/" target="_blank" rel="noopener noreferrer" class="card-hover flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md transition-all duration-300">
+                <h2 class="text-xl font-bold border-l-4 border-blue-500 pl-4 text-gray-800 dark:text-white">Hệ thống</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
+                    <div onclick="window.open('https://truong.hanoi.edu.vn/', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                        <a href="#" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
+                            <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            </div>
+                        </a>
                         <div class="bg-blue-100 dark:bg-blue-900 p-4 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4M4 7s0 0 0 0m16 0s0 0 0 0M12 11a4 4 0 100-8 4 4 0 000 8z" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m16 0L12 3 4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7z" /></svg>
                         </div>
                         <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">CSDL</h3>
-                    </a>
-                    <!-- Thẻ Fsp -->
-                    <a href="https://fsp.fpt.edu.vn" target="_blank" rel="noopener noreferrer" class="card-hover flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md transition-all duration-300">
-                         <div class="bg-blue-100 dark:bg-blue-900 p-4 rounded-full">
+                        <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Dữ liệu ngành Giáo dục Hà Nội</p>
+                    </div>
+                    <div onclick="window.open('https://fsp.fpt.edu.vn', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                        <a href="#" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
+                           <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            </div>
+                        </a>
+                        <div class="bg-blue-100 dark:bg-blue-900 p-4 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                         </div>
-                        <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">Fsp</h3>
-                        <h4 class="text-sm mt-2 text-gray-500 dark:text-gray-400">Điểm danh, nhập điểm FPT</h4>
-                    </a>
+                        <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">FSP</h3>
+                        <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Quản lý đào tạo FPT</p>
+                    </div>
+                    <div onclick="window.open('#', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                        <a href="#" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
+                           <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            </div>
+                        </a>
+                        <div class="bg-blue-100 dark:bg-blue-900 p-4 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.905 59.905 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0l-.07.002z" />
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">EOS</h3>
+                        <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Hệ thống khảo thí online</p>
+                    </div>
+                     <div onclick="window.open('https://econtract.fpt.com.vn/', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                        <a href="#" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
+                           <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            </div>
+                        </a>
+                        <div class="bg-blue-100 dark:bg-blue-900 p-4 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H4a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+                        </div>
+                        <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">E-contract</h3>
+                        <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Hợp đồng điện tử</p>
+                    </div>
+                     <div onclick="window.open('https://epurchase.fpt.com/', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                        <a href="#" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
+                           <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            </div>
+                        </a>
+                        <div class="bg-blue-100 dark:bg-blue-900 p-4 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                        </div>
+                        <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">E-purchase</h3>
+                        <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Đề nghị mua sắm</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Cấp: Yêu cầu -->
             <div>
-                <h2 class="text-2xl font-bold mb-6 border-l-4 border-green-500 pl-4 text-gray-900 dark:text-white">Yêu cầu</h2>
-                <div class="grid grid-cols-2 gap-6">
-                    <!-- Thẻ Đổi tiết -->
-                    <a href="https://lesson-swap-btl-3-cp5s.vercel.app/main/login" target="_blank" rel="noopener noreferrer" class="card-hover flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md transition-all duration-300">
+                <h2 class="text-xl font-bold border-l-4 border-green-500 pl-4 text-gray-800 dark:text-white">Yêu cầu</h2>
+                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
+                    <div onclick="window.open('https://lesson-swap-btl-3-cp5s.vercel.app/main/login', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                        <a href="#" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
+                           <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            </div>
+                        </a>
                         <div class="bg-green-100 dark:bg-green-900 p-4 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
                         </div>
                         <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">Đổi tiết</h3>
-                    </a>
-                    <!-- Thẻ Book phòng -->
-                    <a href="https://room-management-theta.vercel.app/" target="_blank" rel="noopener noreferrer" class="card-hover flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md transition-all duration-300">
+                        <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Gửi đơn</p>
+                    </div>
+                    <div onclick="window.open('https://room-management-theta.vercel.app/', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                        <a href="#" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
+                           <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            </div>
+                        </a>
                         <div class="bg-green-100 dark:bg-green-900 p-4 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" /></svg>
                         </div>
                         <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">Book phòng</h3>
-                    </a>
+                        <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Quản lý và đặt phòng</p>
+                    </div>
+                    <div onclick="window.open('https://ssc.fpt.edu.vn/', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                        <a href="#" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
+                           <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            </div>
+                        </a>
+                        <div class="bg-green-100 dark:bg-green-900 p-4 rounded-full">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.536L15.232 5.232z" /></svg>
+                        </div>
+                        <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">SSC</h3>
+                         <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Trình ký</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Cấp: Thanh toán -->
             <div>
-                <h2 class="text-2xl font-bold mb-6 border-l-4 border-purple-500 pl-4 text-gray-900 dark:text-white">Thanh toán</h2>
-                <div class="grid grid-cols-2 gap-6">
-                    <!-- Thẻ E-contract -->
-                    <a href="https://econtract.fpt.com.vn/" target="_blank" rel="noopener noreferrer" class="card-hover flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md transition-all duration-300">
-                        <div class="bg-purple-100 dark:bg-purple-900 p-4 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H4a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
-                        </div>
-                        <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">E-contract</h3>
-                    </a>
-                     <!-- Thẻ E-purchase -->
-                    <a href="https://epurchase.fpt.com/" target="_blank" rel="noopener noreferrer" class="card-hover flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md transition-all duration-300">
-                        <div class="bg-purple-100 dark:bg-purple-900 p-4 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                        </div>
-                        <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">E-purchase</h3>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Cấp: Tài liệu -->
-             <div>
-                <h2 class="text-2xl font-bold mb-6 border-l-4 border-red-500 pl-4 text-gray-900 dark:text-white">Tài liệu</h2>
-                <div class="grid grid-cols-2 gap-6">
-                    <!-- Thẻ Hồ sơ -->
-                    <a href="#" target="_blank" rel="noopener noreferrer" class="card-hover flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md transition-all duration-300">
+                 <h2 class="text-xl font-bold border-l-4 border-red-500 pl-4 text-gray-800 dark:text-white">Quy trình & Tác vụ</h2>
+                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
+                    <div onclick="window.open('#', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                        <a href="#" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
+                           <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            </div>
+                        </a>
                         <div class="bg-red-100 dark:bg-red-900 p-4 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>
                         </div>
                         <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">Hồ sơ</h3>
-                    </a>
-                    <!-- Thẻ QMS -->
-                    <a href="https://qms.fpt.com" target="_blank" rel="noopener noreferrer" class="card-hover flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md transition-all duration-300">
+                        <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Kho tài liệu</p>
+                    </div>
+                    <div onclick="window.open('https://qms.fpt.com', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                        <a href="#" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
+                           <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            </div>
+                        </a>
                         <div class="bg-red-100 dark:bg-red-900 p-4 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                         </div>
                         <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">QMS</h3>
-                        <h3 class="mt-4 text-gray-500 dark:text-gray-200">Quy trình, Hướng dẫn CV, Quản lý chất lượng</h3>
-                    </a>
+                        <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Quy trình chất lượng</p>
+                    </div>
                 </div>
             </div>
 
-            <div></div>
+            <div>
+                 <h2 class="text-xl font-bold border-l-4 border-yellow-500 pl-4 text-gray-800 dark:text-white">App</h2>
+                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
+                    <div onclick="window.open('https://fap.fpt.edu.vn/', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                        <a href="#" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
+                           <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            </div>
+                        </a>
+                        <div class="bg-yellow-100 dark:bg-yellow-900 p-4 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9.25 17M14.25 17L14.75 17M20 12c0 4.4183-3.5817 8-8 8s-8-3.5817-8-8c0-4.41827 3.58173-8 8-8s8 3.58173 8 8z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 9V15" /></svg>
+                        </div>
+                        <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">MyFPTschool</h3>
+                        <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Ứng dụng dành cho cha mẹ học sinh</p>
+                    </div>
+                     <div onclick="window.open('https://bus.fpt.edu.vn/', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+                        <a href="#" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
+                           <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                            </div>
+                        </a>
+                        <div class="bg-yellow-100 dark:bg-yellow-900 p-4 rounded-full">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10v4.75M12 10v4.75M9 10v4.75M18 10h1.25M17.25 15.5h1.25M18 10v-.25m-6 5.5v.25m-3.25 0v.25M15.25 15.5H18m0 0a2 2 0 100 4 2 2 0 000-4zM15 15.5H9m-3 0H5.5m0 0a2 2 0 100 4 2 2 0 000-4zM2.25 10H5m0 0v-2.5a2 2 0 012-2h10a2 2 0 012 2V10m-3.5 0h-5" /></svg>
+                        </div>
+                        <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">Bus</h3>
+                        <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Theo dõi xe đưa đón học sinh</p>
+                    </div>
+                </div>
+            </div>
 
         </main>
     </div>
 
-    <!-- Chân trang cố định -->
-    <footer class="fixed bottom-0 left-0 z-20 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025 <a href="#" class="hover:underline">Bản quyền thuộc Hanhltm10</a>. Tất cả quyền được bảo lưu.
-        </span>
+    <footer class="fixed bottom-0 left-0 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025 <a href="#" class="hover:underline">Bản quyền thuộc Hanhltm10</a>. Tất cả quyền được bảo lưu.</span>
         <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
-            <li>
-                <a href="#" class="hover:underline me-4 md:me-6">Về chúng tôi</a>
-            </li>
-            <li>
-                <a href="#" class="hover:underline me-4 md:me-6">Chính sách</a>
-            </li>
-            <li>
-                <a href="#" class="hover:underline">Liên hệ</a>
-            </li>
+            <li><a href="#" class="hover:underline me-4 md:me-6">Về chúng tôi</a></li>
+            <li><a href="#" class="hover:underline me-4 md:me-6">Chính sách</a></li>
+            <li><a href="#" class="hover:underline">Liên hệ</a></li>
         </ul>
     </footer>
+
 <script>
-    // Tích hợp Dark Mode
     const darkModeToggler = document.getElementById('darkModeToggler');
-    const body = document.body;
+    const htmlEl = document.documentElement;
+
+    if (localStorage.getItem('theme') === 'dark') {
+        htmlEl.classList.add('dark');
+    }
 
     darkModeToggler.addEventListener('click', () => {
-        body.classList.toggle('dark');
+        htmlEl.classList.toggle('dark');
+        if (htmlEl.classList.contains('dark')) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
     });
 </script>
 </body>
