@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cổng thông tin Tahano</title>
+    <title>Cổng thông tin NCC HHA - KĐT Tân Tây Đô</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -27,7 +27,6 @@
             box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
         }
         
-        /* Background container with a placeholder image */
         .background-container {
             position: fixed;
             top: 0;
@@ -35,16 +34,17 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            /* Using a placeholder for the local 'nen.jpg' file */
             background-image: url('nen.jpg'); 
             background-size: cover;
             background-position: center;
             opacity: 0.7; 
         }
-        /* Make body background transparent to see the container behind it */
         body {
             background-color: transparent !important;
         }
+        .modal { transition: opacity 0.25s ease; }
+        body.modal-active { overflow: hidden; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body class="text-gray-900 dark:text-gray-100 pb-24">
@@ -57,10 +57,38 @@
                 <svg class="h-8 w-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
                 </svg>
-                <span class="text-xl font-bold text-gray-800 dark:text-white">Cổng thông tin Tahano</span>
+                <span class="text-xl font-bold text-gray-800 dark:text-white">Cổng thông tin NCC HHA - KĐT Tân Tây Đô</span>
             </div>
-            <div class="flex items-center space-x-4">
-                <span class="text-gray-600 dark:text-gray-300 hidden sm:inline">Tahano - Mọi thông tin, chỉ một chạm</span>
+            <div class="flex items-center space-x-3">
+                <span class="text-gray-600 dark:text-gray-300 hidden sm:inline text-sm mr-2">NCC HHA - Mọi thông tin, chỉ một chạm</span>
+                
+                <div id="userActions" class="flex items-center gap-2">
+                    <button id="btnOpenLogin" class="flex items-center gap-1 px-3 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        </svg>
+                        <span>Đăng nhập</span>
+                    </button>
+
+                    <div id="adminControls" class="hidden flex items-center gap-2">
+                         <button id="openManageModal" class="flex items-center gap-1 px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition-colors shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                            <span>Quản lý</span>
+                        </button>
+                        <div class="relative group">
+                            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold cursor-pointer border border-gray-300">
+                                <span id="userInitial">U</span>
+                            </div>
+                            <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block hover:block z-50">
+                                <div class="px-4 py-2 text-xs text-gray-500 border-b truncate" id="userEmailDisplay">user@email.com</div>
+                                <button id="btnLogout" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 w-full text-left">Đăng xuất</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <button id="darkModeToggler" class="p-2 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                 </button>
@@ -68,18 +96,13 @@
         </div>
     </header>
 
-    <div class="container mx-auto max-w-7xl p-4 sm:p-6 md:p-8">
-        <main class="grid grid-cols-1 gap-y-12">
-
+   <!--- <div class="container mx-auto max-w-7xl p-4 sm:p-6 md:p-8">
+        <main id="mainContent" class="grid grid-cols-1 gap-y-12">
+            
             <div>
                 <h2 class="text-xl font-bold border-l-4 border-blue-500 pl-4 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.4);">Hệ thống</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
                     <div onclick="window.open('https://truong.hanoi.edu.vn/', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-black">
-                        <a href="http://huongdancsdl.quanlytruonghoc.vn/" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
-                            <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                            </div>
-                        </a>
                         <div class="bg-blue-100 dark:bg-blue-900 p-4 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m16 0L12 3 4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7z" /></svg>
                         </div>
@@ -87,18 +110,13 @@
                         <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Dữ liệu ngành Giáo dục Hà Nội</p>
                     </div>
                     <div onclick="window.open('https://fsp.fpt.edu.vn', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-black">
-                        <a href="https://drive.google.com/file/d/1k0C5-6EJc0Ltyehw7kWbqK34nUcumNf0/view?usp=drive_link" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
-                           <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                            </div>
-                        </a>
                         <div class="bg-blue-100 dark:bg-blue-900 p-4 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                         </div>
                         <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">FSP</h3>
                         <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Quản lý đào tạo FPT</p>
                     </div>
-                    <div onclick="window.open('https://drive.google.com/drive/folders/1FHW5gFNpExcxV2ld4VCkOdrc-KPVv66H?usp=drive_link', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-black">
+                     <div onclick="window.open('https://drive.google.com/drive/folders/1FHW5gFNpExcxV2ld4VCkOdrc-KPVv66H?usp=drive_link', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-black">
                         <div class="bg-blue-100 dark:bg-blue-900 p-4 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.905 59.905 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0l-.07.002z" />
@@ -107,7 +125,7 @@
                         <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">EOS</h3>
                         <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Hệ thống khảo thí online</p>
                     </div>
-                    <div onclick="window.open('https://econtract.fpt.com.vn/', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-black">
+                     <div onclick="window.open('https://econtract.fpt.com.vn/', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-black">
                         <div class="bg-blue-100 dark:bg-blue-900 p-4 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H4a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
                         </div>
@@ -135,18 +153,13 @@
                         <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Gửi đơn</p>
                     </div>
                     <div onclick="window.open('https://room-management-theta.vercel.app/', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-black">
-                        <a href="https://drive.google.com/drive/folders/11ITlBmA37BFcY9ZLV-NqvOE5PXzZYk6w?usp=sharing" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
-                           <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                            </div>
-                        </a>
                         <div class="bg-green-100 dark:bg-green-900 p-4 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" /></svg>
                         </div>
                         <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">Book phòng</h3>
                         <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Quản lý và đặt phòng</p>
                     </div>
-                    <div onclick="window.open('https://ssc.fpt.edu.vn/', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-black">
+                     <div onclick="window.open('https://ssc.fpt.edu.vn/', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-black">
                         <div class="bg-green-100 dark:bg-green-900 p-4 rounded-full">
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.536L15.232 5.232z" /></svg>
                         </div>
@@ -154,11 +167,6 @@
                          <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Trình ký</p>
                     </div>
                     <div onclick="window.open('https://app-hanoi-school.fpt.edu.vn/login', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-black">
-                        <a href="https://drive.google.com/drive/folders/11ITlBmA37BFcY9ZLV-NqvOE5PXzZYk6w?usp=sharing" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
-                           <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                            </div>
-                        </a>
                         <div class="bg-green-100 dark:bg-green-900 p-4 rounded-full">
                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.626zM12 15.75h.007v.008H12v-.008z" /></svg>
                         </div>
@@ -178,7 +186,7 @@
                         <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200">Hồ sơ</h3>
                         <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Kho tài liệu</p>
                     </div>
-                    <div onclick="window.open('https://qms.fpt.com', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-black">
+                     <div onclick="window.open('https://qms.fpt.com', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-black">
                         <div class="bg-red-100 dark:bg-red-900 p-4 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                         </div>
@@ -206,11 +214,6 @@
                  <h2 class="text-xl font-bold border-l-4 border-yellow-500 pl-4 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.4);">App</h2>
                  <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
                     <div onclick="window.open('https://drive.google.com/file/d/1CNr7Qe1XJlnt_LGADokAsWoGve2Rm8u3/view?usp=sharing', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-black">
-                       <a href="https://drive.google.com/file/d/1HMzA8-CVBkhvMjMphzwHSCHPKTTPOCkc/view?usp=drive_link" target="_blank" onclick="event.stopPropagation();" class="absolute top-3 right-3 z-10 text-gray-400 hover:text-blue-500 transition-colors" title="Xem tài liệu hướng dẫn">
-                            <div class="bg-gray-200 dark:bg-gray-700 rounded-md p-1.5">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                            </div>
-                        </a>
                         <div class="bg-yellow-100 dark:bg-yellow-900 p-4 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9.25 17M14.25 17L14.75 17M20 12c0 4.4183-3.5817 8-8 8s-8-3.5817-8-8c0-4.41827 3.58173-8 8-8s8 3.58173 8 8z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 9V15" /></svg>
                         </div>
@@ -227,11 +230,14 @@
                 </div>
             </div>
 
+            <div id="dynamicSections">
+                <p class="text-center text-gray-500 mt-10">Đang tải dữ liệu từ database...</p>
+            </div>
         </main>
-    </div>
+    </div> --->
 
-    <footer class="fixed bottom-0 left-0 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025 <a href="#" class="hover:underline">Bản quyền thuộc Hanhltm10</a>. Tất cả quyền được bảo lưu.</span>
+    <footer class="fixed bottom-0 left-0 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600 z-10">
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2026 Tất cả quyền được bảo lưu.</span>
         <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
             <li><a href="#" class="hover:underline me-4 md:me-6">Về chúng tôi</a></li>
             <li><a href="#" class="hover:underline me-4 md:me-6">Chính sách</a></li>
@@ -239,25 +245,407 @@
         </ul>
     </footer>
 
-<script>
-    // Dark mode toggler functionality
-    const darkModeToggler = document.getElementById('darkModeToggler');
-    const htmlEl = document.documentElement;
+    <div id="loginModal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+        <div class="modal-container bg-white dark:bg-gray-800 w-11/12 md:max-w-sm mx-auto rounded shadow-lg z-50 overflow-y-auto">
+            <div class="modal-content py-4 text-left px-6">
+                <div class="flex justify-between items-center pb-3">
+                    <p class="text-2xl font-bold text-gray-800 dark:text-white">Đăng nhập</p>
+                    <div class="modal-close cursor-pointer z-50" id="closeLoginModal">
+                        <svg class="fill-current text-black dark:text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path></svg>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Email</label>
+                    <input type="email" id="loginEmail" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-gray-700 dark:text-white leading-tight focus:outline-none" placeholder="admin@example.com">
+                </div>
+                <div class="mt-4 mb-6">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Mật khẩu</label>
+                    <input type="password" id="loginPassword" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-gray-700 dark:text-white leading-tight focus:outline-none" placeholder="******">
+                </div>
+                <button id="btnSubmitLogin" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none shadow-lg">Đăng nhập</button>
+            </div>
+        </div>
+    </div>
 
-    // Check for saved theme in localStorage
-    if (localStorage.getItem('theme') === 'dark') {
-        htmlEl.classList.add('dark');
+    <div id="manageModal" class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+        <div class="modal-container bg-white dark:bg-gray-800 w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto max-h-[90vh]">
+            <div class="modal-content py-4 text-left px-6">
+                <div class="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700">
+                    <p class="text-2xl font-bold text-gray-800 dark:text-white">Quản Lý Nội Dung</p>
+                    <div class="modal-close cursor-pointer z-50" id="closeManageModal">
+                        <svg class="fill-current text-black dark:text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"><path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path></svg>
+                    </div>
+                </div>
+
+                <div class="flex mt-4 border-b dark:border-gray-700">
+                    <button class="tab-btn px-4 py-2 text-blue-600 border-b-2 border-blue-600 font-medium" data-tab="tab-section">Tạo Mục Mới</button>
+                    <button class="tab-btn px-4 py-2 text-gray-500 hover:text-blue-500 font-medium" data-tab="tab-link">Thêm Thẻ Link</button>
+                </div>
+
+                <div id="tab-section" class="tab-content mt-4">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Tên Mục Mới</label>
+                        <input type="text" id="newSectionTitle" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-gray-700 dark:text-white leading-tight focus:outline-none">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Màu Sắc</label>
+                        <select id="newSectionColor" class="shadow border rounded w-full py-2 px-3 text-gray-700 dark:bg-gray-700 dark:text-white leading-tight focus:outline-none">
+                            <option value="blue">Xanh Dương</option>
+                            <option value="green">Xanh Lá</option>
+                            <option value="red">Đỏ</option>
+                            <option value="yellow">Vàng</option>
+                            <option value="purple">Tím</option>
+                            <option value="pink">Hồng</option>
+                        </select>
+                    </div>
+                    <button id="btnCreateSection" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none shadow-lg transform transition hover:scale-105">Tạo Mục</button>
+                    
+                    <div class="mt-6 border-t pt-4 dark:border-gray-700">
+                        <h4 class="text-sm font-bold mb-2 dark:text-gray-300">Xóa mục (Database):</h4>
+                        <ul id="createdSectionsList" class="space-y-2 max-h-40 overflow-y-auto text-sm"></ul>
+                    </div>
+                </div>
+
+                <div id="tab-link" class="tab-content mt-4 hidden">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Chọn Mục</label>
+                        <select id="linkSectionSelect" class="shadow border rounded w-full py-2 px-3 text-gray-700 dark:bg-gray-700 dark:text-white leading-tight focus:outline-none"></select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Tiêu Đề Thẻ</label>
+                        <input type="text" id="linkTitle" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-gray-700 dark:text-white leading-tight focus:outline-none">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Mô Tả Ngắn</label>
+                        <input type="text" id="linkDesc" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-gray-700 dark:text-white leading-tight focus:outline-none">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Đường Dẫn (URL)</label>
+                        <input type="text" id="linkUrl" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:bg-gray-700 dark:text-white leading-tight focus:outline-none">
+                    </div>
+                    <button id="btnCreateLink" class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none shadow-lg transform transition hover:scale-105">Thêm Thẻ Link</button>
+                    
+                    <div class="mt-6 border-t pt-4 dark:border-gray-700">
+                        <h4 class="text-sm font-bold mb-2 dark:text-gray-300">Xóa link (Database):</h4>
+                        <ul id="createdLinksList" class="space-y-2 max-h-40 overflow-y-auto text-sm"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="module">
+    // --- 1. IMPORT CONFIG TỪ FILE RIÊNG (ĐỂ BẢO MẬT GITHUB) ---
+    import { firebaseConfig } from './config.js';
+
+    // Import SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, arrayUnion, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // Khởi tạo Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // DOM Elements
+    const btnOpenLogin = document.getElementById('btnOpenLogin');
+    const btnLogout = document.getElementById('btnLogout');
+    const adminControls = document.getElementById('adminControls');
+    const userInitial = document.getElementById('userInitial');
+    const userEmailDisplay = document.getElementById('userEmailDisplay');
+    const dynamicContainer = document.getElementById('dynamicSections');
+    
+    // Modal Elements
+    const loginModal = document.getElementById('loginModal');
+    const closeLoginModal = document.getElementById('closeLoginModal');
+    const btnSubmitLogin = document.getElementById('btnSubmitLogin');
+    
+    const openManageModal = document.getElementById('openManageModal');
+    const closeManageModal = document.getElementById('closeManageModal');
+    const manageModal = document.getElementById('manageModal');
+    const linkSectionSelect = document.getElementById('linkSectionSelect');
+    const createdSectionsList = document.getElementById('createdSectionsList');
+    const createdLinksList = document.getElementById('createdLinksList');
+
+    let sectionsData = [];
+
+    // --- 2. XỬ LÝ AUTH (ĐĂNG NHẬP/ĐĂNG XUẤT) ---
+
+    // Mở modal login
+    btnOpenLogin.addEventListener('click', () => {
+        loginModal.classList.remove('opacity-0', 'pointer-events-none');
+    });
+    // Đóng modal login
+    closeLoginModal.addEventListener('click', () => {
+        loginModal.classList.add('opacity-0', 'pointer-events-none');
+    });
+
+    // Nút "Đăng nhập" trong modal
+    btnSubmitLogin.addEventListener('click', () => {
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        if(!email || !password) return alert("Vui lòng nhập đầy đủ thông tin.");
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Đăng nhập thành công
+                loginModal.classList.add('opacity-0', 'pointer-events-none');
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginPassword').value = '';
+            })
+            .catch((error) => {
+                let msg = "Đăng nhập thất bại: " + error.message;
+                if(error.code === 'auth/invalid-credential') msg = "Sai email hoặc mật khẩu.";
+                alert(msg);
+            });
+    });
+
+    // Nút "Đăng xuất"
+    btnLogout.addEventListener('click', () => {
+        signOut(auth).then(() => {
+            manageModal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.classList.remove('modal-active');
+        });
+    });
+
+    // Theo dõi trạng thái đăng nhập
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // Đã đăng nhập -> Hiện nút Quản lý
+            btnOpenLogin.classList.add('hidden');
+            adminControls.classList.remove('hidden');
+            userInitial.textContent = user.email ? user.email.charAt(0).toUpperCase() : "U";
+            userEmailDisplay.textContent = user.email;
+        } else {
+            // Chưa đăng nhập -> Hiện nút Login
+            btnOpenLogin.classList.remove('hidden');
+            adminControls.classList.add('hidden');
+        }
+    });
+
+    // --- 3. FIRESTORE LOGIC (HIỂN THỊ DỮ LIỆU) ---
+
+    // Lắng nghe dữ liệu realtime
+    const simpleQ = collection(db, "sections");
+    onSnapshot(simpleQ, (snapshot) => {
+        sectionsData = [];
+        snapshot.forEach((doc) => {
+            sectionsData.push({ id: doc.id, ...doc.data() });
+        });
+        // Sắp xếp theo thời gian tạo (client-side sort)
+        sectionsData.sort((a,b) => (a.createdAt?.seconds || 0) - (b.createdAt?.seconds || 0));
+        
+        render(); 
+        updateModalLists();
+    });
+
+    const colorMap = {
+        blue:   { border: 'border-blue-500', text: 'text-blue-500', bg: 'bg-blue-100', darkBg: 'dark:bg-blue-900' },
+        green:  { border: 'border-green-500', text: 'text-green-500', bg: 'bg-green-100', darkBg: 'dark:bg-green-900' },
+        red:    { border: 'border-red-500',   text: 'text-red-500',   bg: 'bg-red-100',   darkBg: 'dark:bg-red-900' },
+        yellow: { border: 'border-yellow-500', text: 'text-yellow-500', bg: 'bg-yellow-100', darkBg: 'dark:bg-yellow-900' },
+        purple: { border: 'border-purple-500', text: 'text-purple-500', bg: 'bg-purple-100', darkBg: 'dark:bg-purple-900' },
+        pink:   { border: 'border-pink-500',   text: 'text-pink-500',   bg: 'bg-pink-100',   darkBg: 'dark:bg-pink-900' },
+    };
+
+    function render() {
+        dynamicContainer.innerHTML = '';
+        if (sectionsData.length === 0) {
+            dynamicContainer.innerHTML = '<p class="text-center text-gray-500 mt-10">Chưa có dữ liệu nào trong Database.</p>';
+            return;
+        }
+
+        sectionsData.forEach(section => {
+            const colors = colorMap[section.color] || colorMap.blue;
+            let linksHtml = '';
+            
+            if (section.links && Array.isArray(section.links)) {
+                section.links.forEach(link => {
+                    linksHtml += `
+                        <div onclick="window.open('${link.url}', '_blank')" class="card-hover relative cursor-pointer flex flex-col items-center text-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-black h-full">
+                            <div class="${colors.bg} ${colors.darkBg} p-4 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 ${colors.text}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                                </svg>
+                            </div>
+                            <h3 class="font-semibold mt-4 text-gray-800 dark:text-gray-200 line-clamp-2">${link.title}</h3>
+                            <p class="text-sm mt-2 text-gray-500 dark:text-gray-400 line-clamp-2">${link.desc}</p>
+                        </div>
+                    `;
+                });
+            }
+
+            const sectionHtml = `
+                <div>
+                    <h2 class="text-xl font-bold border-l-4 ${colors.border} pl-4 text-white" style="text-shadow: 0 1px 3px rgba(0,0,0,0.4);">${section.title}</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
+                        ${linksHtml}
+                    </div>
+                </div>
+            `;
+            dynamicContainer.insertAdjacentHTML('beforeend', sectionHtml);
+        });
     }
 
-    // Add click event listener to the toggler button
+    // --- 4. LOGIC QUẢN LÝ (MODAL & UPDATE LISTS) ---
+
+    function updateModalLists() {
+        createdSectionsList.innerHTML = '';
+        linkSectionSelect.innerHTML = '';
+        
+        if(sectionsData.length === 0) {
+            createdSectionsList.innerHTML = '<li class="text-gray-500 italic">Trống</li>';
+            linkSectionSelect.innerHTML = '<option disabled selected>Chưa có mục nào</option>';
+        }
+
+        sectionsData.forEach((section) => {
+            // Thêm option vào dropdown chọn mục
+            const option = document.createElement('option');
+            option.value = section.id; 
+            option.textContent = section.title;
+            linkSectionSelect.appendChild(option);
+            
+            // Thêm vào list xóa mục
+            const li = document.createElement('li');
+            li.className = "flex justify-between items-center bg-gray-100 dark:bg-gray-700 p-2 rounded";
+            li.innerHTML = `
+                <span class="text-gray-800 dark:text-gray-200">${section.title}</span>
+                <button class="btn-delete-section text-red-500 hover:text-red-700 text-xs font-bold uppercase" data-id="${section.id}">Xóa</button>
+            `;
+            createdSectionsList.appendChild(li);
+        });
+        
+        // Gán sự kiện cho các nút xóa mục
+        document.querySelectorAll('.btn-delete-section').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                if(!auth.currentUser) return alert("Vui lòng đăng nhập!");
+                const id = e.target.getAttribute('data-id');
+                if(confirm('Bạn có chắc muốn xóa mục này khỏi database?')) {
+                    try { await deleteDoc(doc(db, "sections", id)); alert('Đã xóa!'); } catch (err) { alert(err.message); }
+                }
+            });
+        });
+
+        // Update list link của mục đang chọn
+        updateLinkDeletionList();
+    }
+
+    function updateLinkDeletionList() {
+        const selectedId = linkSectionSelect.value;
+        createdLinksList.innerHTML = '';
+        const section = sectionsData.find(s => s.id === selectedId);
+        
+        if (section && section.links && section.links.length > 0) {
+             section.links.forEach((link, idx) => {
+                const li = document.createElement('li');
+                li.className = "flex justify-between items-center bg-gray-100 dark:bg-gray-700 p-2 rounded";
+                li.innerHTML = `
+                    <span class="text-gray-800 dark:text-gray-200 truncate w-32">${link.title}</span>
+                    <button class="btn-delete-link text-red-500 hover:text-red-700 text-xs font-bold uppercase" data-section-id="${selectedId}" data-link-idx="${idx}">Xóa</button>
+                `;
+                createdLinksList.appendChild(li);
+             });
+             
+             // Gán sự kiện xóa link
+             document.querySelectorAll('.btn-delete-link').forEach(btn => {
+                 btn.addEventListener('click', async (e) => {
+                     if(!auth.currentUser) return alert("Vui lòng đăng nhập!");
+                     const secId = e.target.getAttribute('data-section-id');
+                     const linkIdx = e.target.getAttribute('data-link-idx');
+                     const sec = sectionsData.find(s => s.id === secId);
+                     
+                     if(confirm('Xóa link này khỏi database?')) {
+                         const newLinks = [...sec.links];
+                         newLinks.splice(linkIdx, 1);
+                         try { await updateDoc(doc(db, "sections", secId), { links: newLinks }); } catch(err) { alert(err.message); }
+                     }
+                 });
+             });
+        } else {
+             createdLinksList.innerHTML = '<li class="text-gray-500 italic">Mục này chưa có thẻ nào.</li>';
+        }
+    }
+
+    // --- 5. LOGIC TẠO MỚI (CREATE) ---
+    
+    // Tạo Mục Mới
+    document.getElementById('btnCreateSection').addEventListener('click', async () => {
+        if (!auth.currentUser) return alert("Vui lòng đăng nhập để thực hiện.");
+        const title = document.getElementById('newSectionTitle').value.trim();
+        const color = document.getElementById('newSectionColor').value;
+        
+        if (!title) return alert('Nhập tên mục!');
+        
+        try {
+            await addDoc(collection(db, "sections"), { 
+                title: title, 
+                color: color, 
+                links: [], 
+                createdAt: new Date() 
+            });
+            document.getElementById('newSectionTitle').value = '';
+            alert('Đã lưu mục mới vào Database!');
+        } catch (e) { alert("Lỗi khi lưu: " + e.message); }
+    });
+
+    // Tạo Link Mới
+    document.getElementById('btnCreateLink').addEventListener('click', async () => {
+        if (!auth.currentUser) return alert("Vui lòng đăng nhập để thực hiện.");
+        const sectionId = linkSectionSelect.value;
+        const title = document.getElementById('linkTitle').value.trim();
+        const desc = document.getElementById('linkDesc').value.trim();
+        let url = document.getElementById('linkUrl').value.trim();
+        
+        if (!sectionId) return alert('Chọn mục trước!');
+        if (!title || !url) return alert('Nhập tiêu đề & link!');
+        if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+        
+        try {
+            await updateDoc(doc(db, "sections", sectionId), { 
+                links: arrayUnion({ title, desc, url }) 
+            });
+            document.getElementById('linkTitle').value = '';
+            document.getElementById('linkDesc').value = '';
+            document.getElementById('linkUrl').value = '';
+            alert('Đã lưu thẻ link vào Database!');
+        } catch (e) { alert("Lỗi khi lưu: " + e.message); }
+    });
+    
+    // UI Helpers
+    linkSectionSelect.addEventListener('change', updateLinkDeletionList);
+    
+    openManageModal.addEventListener('click', () => { 
+        manageModal.classList.remove('opacity-0', 'pointer-events-none'); 
+        document.body.classList.add('modal-active'); 
+    });
+    closeManageModal.addEventListener('click', () => { 
+        manageModal.classList.add('opacity-0', 'pointer-events-none'); 
+        document.body.classList.remove('modal-active'); 
+    });
+    
+    // Tabs
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => { b.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600'); b.classList.add('text-gray-500'); });
+            tabContents.forEach(c => c.classList.add('hidden'));
+            btn.classList.remove('text-gray-500'); btn.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+            document.getElementById(btn.dataset.tab).classList.remove('hidden');
+        });
+    });
+
+    // Dark Mode
+    const darkModeToggler = document.getElementById('darkModeToggler');
+    const htmlEl = document.documentElement;
+    if (localStorage.getItem('theme') === 'dark') htmlEl.classList.add('dark');
     darkModeToggler.addEventListener('click', () => {
         htmlEl.classList.toggle('dark');
-        // Save the current theme to localStorage
-        if (htmlEl.classList.contains('dark')) {
-            localStorage.setItem('theme', 'dark');
-        } else {
-            localStorage.setItem('theme', 'light');
-        }
+        localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
     });
 </script>
 </body>
