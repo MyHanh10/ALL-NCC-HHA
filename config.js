@@ -1,10 +1,10 @@
 // File này chứa thông tin mật, KHÔNG đưa lên GitHub
 export const firebaseConfig = {
-    apiKey: "AIzaSyD6Rsfy8nRCDaDnZWmW9-XQ7XeBvFAz4h4",
-    authDomain: "all-tdp-ttd.firebaseapp.com",
-    projectId: "all-tdp-ttd",
-    storageBucket: "all-tdp-ttd.firebasestorage.app",
-    messagingSenderId: "100107810305",
-    appId: "1:100107810305:web:d2be1ffd4d9b6e3004f200",
-    measurementId: "G-YMYWRG0TWJ"
+    apiKey: "AIzaSyCp1sj2Esoyguc8BBFS8u7nQJhAkOusKSE",
+    authDomain: "all-ncc-hha.firebaseapp.com",
+    projectId: "all-ncc-hha",
+    storageBucket: "all-ncc-hha.firebasestorage.app",
+    messagingSenderId: "722766356262",
+    appId: "1:722766356262:web:b6e999ea077623e2a02be7",
+    measurementId: "G-N0S02FWBHF"
 };
